@@ -129,6 +129,7 @@
 \newbool{multiauthors}
 \newbool{showindex}
 \newbool{biblatex}
+    \booltrue{biblatex}
 \newbool{newtxmath}
 \newbool{minimal}
 \newbool{collection}
@@ -142,10 +143,8 @@
 %     Option handling
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\RequirePackage{kvoptions}		% for key-value options
-\SetupKeyvalOptions{
-	family=langscibook,
-	prefix=langscibook@ }
+\RequirePackage{kvoptions}
+
 \DeclareStringOption{output}[book]
 	\define@key{langscibook}{output}{%
 		\renewcommand{\lsOutput}{#1}}
@@ -161,13 +160,12 @@
 \DeclareStringOption{spinewidth}[20mm]
 	\define@key{langscibook}{spinewidth}{%
 		\renewcommand{\lsSpinewidth}{#1}}
-\DeclareVoidOption{smallfont}{
-	\renewcommand{\lsFontsize}{10pt}}
+\DeclareVoidOption{smallfont}{\renewcommand{\lsFontsize}{10pt}}
 \DeclareVoidOption{decapbib}{
         \booltrue{resetcapitals}
 % 	\lsResetCapitalstrue
 	}
-\DeclareVoidOption{draftmode}{	% 'draftmode' instead of 'draft' due to undesirable side efects
+\DeclareVoidOption{draftmode}{% 'draftmode' instead of 'draft' due to undesirable side efects
 	 \booltrue{draft}
 	 \overfullrule=5pt
 	 }	% to indicate overfull hboxes
@@ -175,52 +173,31 @@
 	\booltrue{openreview}
 	\AtBeginDocument{\renewcommand{\lsISBNdigital}{000-0-000000-00-0}}
 	}
-\DeclareVoidOption{nobabel}{
-  \boolfalse{babel}
+\DeclareVoidOption{nobabel}{\boolfalse{babel}}
+\DeclareVoidOption{babelshorthands}{\booltrue{babelshorthands}}
+\DeclareVoidOption{multiauthors}{\booltrue{multiauthors}}
+\DeclareVoidOption{showindex}{\booltrue{showindex}}
+\DeclareVoidOption{biblatex}{\booltrue{biblatex}}
+\DeclareVoidOption{nonewtxmath}{\boolfalse{newtxmath}}
+\DeclareVoidOption{newtxmath}{\booltrue{newtxmath}}
+\DeclareVoidOption{minimal}{\booltrue{minimal}}
+\DeclareVoidOption{collection}{\booltrue{collection}}
+\DeclareVoidOption{proofs}
+  {
+    \AtEndPreamble{\usepackage[switch, pagewise]{lineno}}
+    \AtBeginDocument{\linenumbers}
   }
-
-\DeclareVoidOption{babelshorthands}{
-  \booltrue{babelshorthands}
+\DeclareVoidOption{collectionchapter}
+  {
+    \booltrue{collection}\booltrue{collectionchapter}
   }
-
-\DeclareVoidOption{multiauthors}{
-    \booltrue{multiauthors}
-}
-
-\DeclareVoidOption{showindex}{
-        \booltrue{showindex}
-	}
-\booltrue{biblatex}
-
-\DeclareVoidOption{biblatex}{
-	\booltrue{biblatex}
-	}
-\DeclareVoidOption{nonewtxmath}{
-	\boolfalse{newtxmath} %seems redundant
-	}
-\DeclareVoidOption{newtxmath}{
-        \booltrue{newtxmath}
-        }
-\DeclareVoidOption{minimal}{
-	\booltrue{minimal}
-	}
-\DeclareVoidOption{collection}{
-	\booltrue{collection}
-	}
-\DeclareVoidOption{collectionchapter}{
-	\booltrue{collection}
-	\booltrue{collectionchapter}
-	}
-\DeclareVoidOption{collectiontoclong}{
+\DeclareVoidOption{collectiontoclong}
+  {
 	\booltrue{collection}
 	\booltrue{collectiontoclong}
-	}
-\DeclareVoidOption{uniformtopskip}{
-    \booltrue{uniformtopskip}
-    }
-\DeclareVoidOption{oldstylenumbers}{
-        \booltrue{oldstylenumbers}
-        }
+  }
+\DeclareVoidOption{uniformtopskip}{\booltrue{uniformtopskip}}
+\DeclareVoidOption{oldstylenumbers}{\booltrue{oldstylenumbers}}
 
 \DeclareVoidOption{chinesefont}{
   \AtEndPreamble{
@@ -235,6 +212,7 @@
 	\XeTeXlinebreakskip = 0pt plus 1pt
   }
 }
+
 \DeclareVoidOption{japanesefont}{
   \AtEndPreamble{
 	\newfontfamily\jpn
@@ -247,6 +225,7 @@
     \XeTeXlinebreaklocale 'ja'
   }
 }
+
 \DeclareVoidOption{koreanfont}{
   \AtEndPreamble{
 	\newfontfamily\krn
@@ -260,35 +239,30 @@
   }
 }
 
-\DeclareVoidOption{arabicfont}{
+\DeclareVoidOption{arabicfont}
+  {
 	\newfontfamily\arabicfont[Script=Arabic,ItalicFont=*,Scale=1.4]{arabtype.ttf}
 % 	\newcommand{\textarabic}[1]{{\arabicfont #1}}
 	\AdditionalFontImprint{Arabtype}
-}
-\DeclareVoidOption{hebrewfont}{
+  }
+
+\DeclareVoidOption{hebrewfont}
+  {
 	\newfontfamily\hebrewfont[Script=Hebrew,ItalicFont=*, Scale=0.9]{SBLHebrew.ttf}
 % 	\newcommand{\texthebrew}[1]{{\hebrewfont #1}}
 	\AdditionalFontImprint{SBLHebrew}
-}
-\DeclareVoidOption{syriacfont}{
+  }
+
+\DeclareVoidOption{syriacfont}
+  {
 	\newfontfamily\syriacfont[Script=Syriac]{EstrangeloEdessa.ttf}
 % 	\newcommand{\textsyriac}[1]{{\syriacfont #1}}
 	\AdditionalFontImprint{Estrangelo Edessa}
-}
+  }
 
-\DeclareVoidOption{tblseight}{
-    \booltrue{tblseight}
-}
+\DeclareVoidOption{tblseight}{\booltrue{tblseight}}
 
-\ProcessKeyvalOptions{langscibook}
-
-% \newcommand{\lsOutputLong}{long}
-\newcommand{\lsOutputBook}{book}             % standard book
-\newcommand{\lsOutputPaper}{paper}            % paper in edited volume
-\newcommand{\lsOutputGuidelines}{guidelines}  % guidelines
-\newcommand{\lsOutputCoverBODsc}{coverbodsc}      % cover with BoD measurements
-\newcommand{\lsOutputCoverBODhc}{coverbodhc}      % cover with BoD measurements
-\newcommand{\lsOutputCoverCS}{covercreatespace} % cover with CreateSpace measurements
+\ProcessKeyvalOptions*
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Output variables
@@ -300,6 +274,14 @@
 \newbool{coverBODhc}
 \newbool{coverBODsc}
 \newbool{coverCS}
+
+\newcommand{\lsOutputPaper}{paper}
+\newcommand{\lsOutputBook}{book}
+\newcommand{\lsOutputGuidelines}{guidelines}
+\newcommand{\lsOutputCoverBODhc}{coverbodhc}
+\newcommand{\lsOutputCoverBODsc}{coverbodsc}
+\newcommand{\lsOutputCoverCS}{amazoncover}
+
 \ifx\lsOutput\lsOutputPaper{\global\booltrue{paper}}\fi
 \ifx\lsOutput\lsOutputBook{\global\booltrue{book}}\fi
 \ifx\lsOutput\lsOutputGuidelines{\global\booltrue{guidelines}}\fi
@@ -311,28 +293,23 @@
 %     Class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\lsChapterPrefixString}{} %this conditional cannot be put
+\newcommand{\lsChapterPrefixString}{} 
+% this conditional cannot be put
 % directly into the LoadClass, so we compute the value and store it in a command
- \ifbool{collection}{
-    \renewcommand{\lsChapterPrefixString}{chapterprefix=true,}
-  }{
-%   \else
-    \ifbool{paper}{
-        \renewcommand{\lsChapterPrefixString}{chapterprefix=true,}
-    }{}
-}
+\ifbool{collection}
+ {\renewcommand{\lsChapterPrefixString}{chapterprefix=true,}}
+ {\ifbool{paper}{\renewcommand{\lsChapterPrefixString}{chapterprefix=true,}}{}}
+
 
 \LoadClass[
-    fontsize=\lsFontsize, % default is 11pt
+    fontsize=\lsFontsize,% default is 11pt
     footnotes=multiple,
-    numbers=noenddot,   % no point after last number of chapters/sections
+    numbers=noenddot,% no point after last number of chapters/sections
     toc=bibliography,
     index=totoc,
     headings=optiontohead,
-    % %   headings=normal,
-    \lsChapterPrefixString
-    %draft=yes,
-    %appendixprefix
+    \lsChapterPrefixString,
+    footnotes=multiple
     ]{scrbook}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -342,9 +319,6 @@
 % secret hook to insert package which want to be loaded before all other packages
 \IfFileExists{./langsci-earlyload.def}{\input{langsci-earlyload.def}}{}
 
-\usepackage{morewrites} %more helper files to write to
-\usepackage{etex}
-\reserveinserts{18}
 \usepackage{xstring}
 \usepackage{graphicx}
 \usepackage{hyphenat}
@@ -353,16 +327,11 @@
 	\usetikzlibrary{positioning}
 	\usetikzlibrary{calc}
 
-\usepackage{pbox}   % boxes with maximum width
 \usepackage[hyphens]{url}
 \urlstyle{same}
 
-
 %% standard commands
 \usepackage{langsci-basic}
-\usepackage{todonotes}
-\usepackage{tabularx}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %      Covers
@@ -371,7 +340,6 @@
     % Basic cover commands, including PGF layers
     \newcommand{\coversetup}{
         \booltrue{cover}
-        %   \lsCovertrue
         \renewcommand{\maketitle}{}  %no need for this
         \pagestyle{empty}
         \pgfdeclarelayer{lspcls_bg}    % Create a background layer that serves as the canvas for the coloured rectangles.
@@ -380,8 +348,6 @@
         \renewcommand{\lastand}{ \& }%
         \renewcommand{\affiliation}[1]{}
     }
-
-
 
     % Fill the canvas for the cover with coloured areas on back and front cover
     % Argument 1: White margin that encompasses the coloured title and backtitle form. Input: 12.34mm
@@ -484,6 +450,7 @@
                 {\color{#1}\lsSeriesTitle~\lsSeriesNumber\par};
     }
 }{}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %      Output types
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -492,24 +459,22 @@
 %% Output types are defined with \newcommand above so they can be used with geometry.
 
 %we define a command to better encapsulate the logic
-\newcommand{\setuptitle}{
-    \renewcommand{\maketitle}{
-        %first we treat covers to get them out of the way
-        \ifbool{coverBODhc}{
+\newcommand{\setuptitle}{%
+    \renewcommand{\maketitle}{%first we treat covers to get them out of the way
+        \ifbool{coverBODhc}{%
             \bodHCcover
             \end{document}
         }{}
 
-        \ifbool{coverBODsc}{
+        \ifbool{coverBODsc}{%
             \bodSCcover
             \end{document}
         }{}
 
-        \ifbool{coverCS}{
+        \ifbool{coverCS}{%
            \amazonKindleCover
             \end{document}
         }{}
-
 
         \ifbool{book}{
             \begin{titlepage}
@@ -539,7 +504,7 @@
     %         \fi
         }{} %end book
 
-        \ifbool{guidelines}{
+        \ifbool{guidelines}{%
             \begin{titlepage}
             \thispagestyle{empty}
             {\setcounter{page}{-1}
@@ -577,13 +542,13 @@
     % its title. This is why \maketitle for output==paper
     % is deferred until later. See the call to \includepaper@body.
     \AtBeginDocument{%
-        \ifbool{minimal}{
-            \renewcommand{\maketitle}{You are using the minimal mode.} % The minimal mode skips cover generation
-        }
-        % else minimal
-        {
+        \ifbool{minimal}
+          {% The minimal mode skips cover generation
+            \renewcommand{\maketitle}{You are using the minimal mode.} 
+          }
+          {% else minimal
             \setuptitle
-        }
+          }
 
         %% for those who like the example in numbered example sentences to be typeset in italics
         %% this is possible for a complete series only.
@@ -668,7 +633,7 @@
 \usepackage{amssymb} % has to be loaded before other stuff
 \usepackage{amsmath} % has to be loaded before mathspec/unicode-math
 
-\notbool{minimal}{ % The minimal mode skips font loading
+\notbool{minimal}{% The minimal mode skips font loading
     \notbool{newtxmath}{
     %% There is a known problem in the interplay between \binom, unicode-math, and OTF
     %% https://tex.stackexchange.com/questions/269980/wrong-parentheses-size-in-binom-with-xelatex-and-unicode-math-in-displaystyle
@@ -727,19 +692,21 @@
     \ifbool{oldstylenumbers}{
     \defaultfontfeatures[LibertinusSerif-Semibold.otf,LibertinusSerif-Italic.otf,LibertinusSerif-SemiboldItalic.otf,LibertinusSerif-Regular.otf]{SmallCapsFeatures={Numbers=OldStyle}}
     }{}
-    \setmainfont[
-    Ligatures={TeX,Common},
-    PunctuationSpace=0,
-    Numbers={Proportional},
-    BoldFont = LibertinusSerif-Semibold.otf,
-    ItalicFont = LibertinusSerif-Italic.otf,
-    BoldItalicFont = LibertinusSerif-SemiboldItalic.otf,
-    BoldSlantedFont = LibertinusSerif-Semibold.otf,
-    SlantedFont    = LibertinusSerif-Regular.otf,
-    SlantedFeatures = {FakeSlant=0.25},
-    BoldSlantedFeatures = {FakeSlant=0.25},
-    SmallCapsFeatures = {FakeSlant=0},
-    ]{LibertinusSerif-Regular.otf}
+    \setmainfont
+      [
+        Ligatures={TeX,Common},
+        PunctuationSpace=0,
+        Numbers={Proportional},
+        BoldFont = LibertinusSerif-Semibold.otf,
+        ItalicFont = LibertinusSerif-Italic.otf,
+        BoldItalicFont = LibertinusSerif-SemiboldItalic.otf,
+        BoldSlantedFont = LibertinusSerif-Semibold.otf,
+        SlantedFont    = LibertinusSerif-Regular.otf,
+        SlantedFeatures = {FakeSlant=0.25},
+        BoldSlantedFeatures = {FakeSlant=0.25},
+        SmallCapsFeatures = {FakeSlant=0},
+      ]
+      {LibertinusSerif-Regular.otf}
 
     %% Deprecated:
     \ifbool{newtxmath}{
@@ -783,7 +750,7 @@
     % In collected volumes, adjust the spacing for unnumbered chapters
     \ifbool{collection}{
       \renewcommand{\addtocentrydefault}[3]{%
-        \ifstr{#2}{}{%
+        \Ifstr{#2}{}{%
           \addcontentsline{toc}{#1}{\protect\numberline{~}#3}%
         }{%
           \addcontentsline{toc}{#1}{\protect\numberline{#2}#3}%
@@ -815,7 +782,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Colors
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \usepackage{xcolor}
 
@@ -870,7 +836,6 @@
 \definecolor{langscicol19}{cmyk}{0.85,0.05,1,0.5}
 \definecolor{langscicol20}{cmyk}{0.88,0.15,1,0.66}
 
-
 % \newcommand{\lsptable}[2]{
 % \resizebox{#1}{!}{
 % \begin{tabularx}{\textwidth}{XXXXXXXXXXXXXXXXXXXX}
@@ -880,14 +845,13 @@
 % }
 % }
 
-
 \input{langsci-series.def}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{pst-barcode}          % for generating bar codes
+\usepackage{pst-barcode} % generates ISBN bar codes
 \newcommand{\lsCoverFontColor}{white}
 \newcommand{\lsCoverBlockColor}{\lsSeriesColor}
 
@@ -957,8 +921,6 @@
     \ifcsname tikz@library@external@loaded\endcsname\tikzexternalenable\fi
 } %end Schmutztitel
 
-
-
 \newcommand{\lsBackPage}{%
     \ifcsname tikz@library@external@loaded\endcsname\tikzexternaldisable\fi
     \pgfdeclarelayer{lspcls_bg}    % Create a background layer that serves as the canvas for the coloured rectangles.
@@ -982,20 +944,24 @@
   \ifcsname tikz@library@external@loaded\endcsname\tikzexternalenable\fi
   }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Series history
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\tblseight}{{\color{red} Chinese fonts for TBLS 8 not loaded! Please set the option \textsc{tblseight} in main.tex for final production}}
-\ifbool{tblseight}{
-\newfontfamily\cn
-    [
-    Scale=MatchLowercase,
-    BoldFont=SourceHanSerifSC-Bold.otf
-]
-{SourceHanSerifSC-Regular.otf}
-\renewcommand{\tblseight}{{\cn 语法理论: 从转换语法到基于约束的理论}}}{}
+\newcommand{\tblseight}{{\color{red}Chinese fonts for TBLS 8 not loaded! Please set the option \textsc{tblseight} in main.tex for final production}}
+
+\ifbool{tblseight}
+  {
+    \newfontfamily\cn
+      [
+        Scale=MatchLowercase,
+        BoldFont=SourceHanSerifSC-Bold.otf
+      ]
+      {SourceHanSerifSC-Regular.otf}
+
+    \renewcommand{\tblseight}{{\cn 语法理论: 从转换语法到基于约束的理论}}
+  }{}
+
 \newcommand{\lsSeriesHistory}{
     \color{black}
     \raggedright\lsCoverSeriesHistoryFont
@@ -1034,10 +1000,11 @@
 \illustrator{}
 
 \newcommand{\lsAdditionalFontsImprint}{}
-\newcommand{\AdditionalFontImprint}[1]{
-  \edef\fontstemp{\lsAdditionalFontsImprint}
-  \renewcommand{\lsAdditionalFontsImprint}{\fontstemp, #1}
-}
+\newcommand{\AdditionalFontImprint}[1]
+  {
+    \edef\fontstemp{\lsAdditionalFontsImprint}
+    \renewcommand{\lsAdditionalFontsImprint}{\fontstemp, #1}
+  }
 
 %\def\@author{\@latex@warning@no@line{No \noexpand\author given}}
 \newcommand{\ISBNdigital}[1]{\renewcommand{\lsISBNdigital}{#1}}
@@ -1050,73 +1017,54 @@
 \newcommand{\SeriesNumber}[1]{\renewcommand{\lsSeriesNumber}{#1}}
 \newcommand{\BookDOI}[1]{\renewcommand{\lsBookDOI}{#1}}
 
-
-%invert names of first author for citation on impressum page
-
-\newcommand{\lsFirstAuthorFullName}{}%temporary, will be overwritten
-\newcommand{\lsFirstAuthorFirstName}{}%temporary, will be overwritten
-\newcommand{\lsFirstAuthorLastName}{}%temporary, will be overwritten
-\newcommand{\lsFirstAuthorString}{\lsFirstAuthorLastName, \lsFirstAuthorFirstName} %can be customized in localmetadata.tex
-\newcommand{\lsNonFirstAuthorsString}{}  %default, will be overwritten iff more than one author
-% \newcommand{\lsImpressionCitationAuthor}{\lsFirstAuthorString \lsNonFirstAuthorsString}
-
-
-\AtBeginDocument{
-    \makeatletter
-    \let\theauthor\@author
-    \makeatother
-    \ifdefempty{\lsFirstAuthorFirstName}{% Check if the \lsFirstAuthorFirstName is given in localmetadata.tex (or somewhere else).
-        \renewcommand{\and}{NONLASTAND} %expand for easier checking. Might need to be undone later on
-        \renewcommand{\lastand}{LASTAND} %expand for easier checking
-
-        \IfSubStr{\theauthor}{NONLASTAND}{%2+authors
-            \renewcommand{\lsFirstAuthorFullName}{\StrBefore{\theauthor}{\and }}
-            \renewcommand{\lsFirstAuthorFirstName}{\StrBefore{\theauthor}{ }}
-            \renewcommand{\lsFirstAuthorLastName}{\StrBetween{\theauthor}{ }{\and }}
-            \renewcommand{\lsNonFirstAuthorsString}{\and\StrBehind{\theauthor}{\and }}
-        }{%else
-            \IfSubStr{\theauthor}{LASTAND}{%less than two authors, more than one
-                \renewcommand{\lsFirstAuthorFullName}{\StrBefore{\theauthor}{\lastand }}
-                \renewcommand{\lsFirstAuthorFirstName}{\StrBefore{\theauthor}{ }}
-                \renewcommand{\lsFirstAuthorLastName}{\StrBetween{\theauthor}{ }{\lastand }}
-                \renewcommand{\lsNonFirstAuthorsString}{\lastand\StrBehind{\theauthor}{\lastand }}
-            }{%else exactly one author
-                \renewcommand{\lsFirstAuthorFirstName}{\StrBefore{\theauthor}{ }}
-                \renewcommand{\lsFirstAuthorLastName}{\StrBehind{\theauthor}{ }}
-            }
+\ifbool{paper}
+  {}
+  {%
+    \AtBeginDocument
+      {%
+        \newwrite\metadatafile
+        \immediate\openout\metadatafile=langscitmp.bib
+        \immediate\write\metadatafile{%
+          @book{langsci-current-book,
+            \ifbool{collection}
+              {editor = {\unexpanded\expandafter{\@author}},}
+              {author = {\unexpanded\expandafter{\@author}},}
+            title = {\unexpanded\expandafter{\@title}},
+            \if\@subtitle\empty\else subtitle = {\unexpanded\expandafter{\@subtitle}},\fi
+            year = {\lsYear},
+            series = {\lsSeriesTitle},
+            number = {\lsSeriesNumber},
+            location = {Berlin},
+            publisher = {Language Science Press},
+            options = {dataonly=true}
+          }
         }
-    }{}
-}
+        \immediate\closeout\metadatafile
+        \addbibresource{langscitmp.bib}
+      }
+  }
 
+\newcommand{\lsImpressumCitationText}
+  {
+    \fullciteImprint{langsci-current-book}
+  }
 
-\newcommand{\lsImpressionCitationAuthor}{
-    \lsFirstAuthorLastName, \lsFirstAuthorFirstName \lsNonFirstAuthorsString
-}
-
-\newcommand{\lsImpressumCitationText}{
-  \onlyAuthor
-  \renewcommand{\newlineCover}{}
-  \renewcommand{\newlineSpine}{}
-  {\lsImpressionCitationAuthor}\if\lsEditorSuffix\empty\else\ \lsEditorSuffix\fi. %
-  {\lsYear}. %
-  \textit{\@title}\if\@subtitle\empty\else: \textit{\@subtitle}\fi\ %
-  (\lsSeriesTitle~\lsSeriesNumber). %
-  Berlin: Language Science Press.
-}
 \newcommand{\lsImpressumExtra}{}%for legal notes required for revised theses ("... in fulfillment of ... ")
 
-\newcommand{\publisherstreetaddress}{%
-Language Science Press\\
-xHain\\
-Grünberger Str. 16\\
-10243 Berlin, Germany}
+\newcommand{\publisherstreetaddress}
+  {%
+    Language Science Press\\
+    xHain\\
+    Grünberger Str. 16\\
+    10243 Berlin, Germany
+  }
+
 \newcommand{\publisherurl}{\href{http://langsci-press.org}{langsci-press.org}}
 \newcommand{\storageinstitution}{FU Berlin}
 \newcommand{\githubtext}{Source code available from \href{https://www.github.com/langsci/\lsID}{www.github.com/langsci/\lsID}}
 \newcommand{\paperhivetext}{Collaborative~reading:~\href{https://paperhive.org/documents/remote?type=langsci&id=\lsID}{paperhive.org/documents/remote?type=langsci\&id=\lsID}}
 
-
-\newcommand{\lsImpressum}{
+\newcommand{\lsImpressum}{%
 \thispagestyle{empty}
 \raggedright
 
@@ -1131,7 +1079,7 @@ This title can be downloaded at:\\
 \ifbool{collection}{%
     the authors}{%
     % \else
-    \@author
+    \CiteFullAuthorList{langsci-current-book}
 }
 
 \newcommand{\ccby}{CC-BY}
@@ -1154,8 +1102,6 @@ http://creativecommons.org/licenses/by-sa/4.0/ \includegraphics[height=.75em]{cc
 \ifx\lsSeries\sidl
 Indexed in EBSCO\smallskip
 \fi
-
-
 
 \begin{tabular}{@{}l@{~}l}
 ISBN: &
@@ -1191,7 +1137,6 @@ ISBN: &
   {%else
     ISSN: \lsISSN
   }
-
 
 \IfStrEq{\lsBookDOI}{??}{
     {\color{red} no DOI}
@@ -1257,8 +1202,9 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 %    Dedication
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\lsDedication}{%
-        \thispagestyle{empty}
+\newcommand{\lsDedication}
+  {%
+    \thispagestyle{empty}
 	\vspace*{\fill}
 	\begin{center}
 	{\lsDedicationFont
@@ -1266,8 +1212,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	\end{center}
 	\vspace*{\fill}
 	\clearpage
-}
-
+  }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Header and footer
@@ -1323,7 +1268,6 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 %% needed for hyperref
 \def\toclevel@subsubsubsection{4}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Epigrams
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1333,13 +1277,12 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \def\epigramsource#1{\gdef\@epigramsource{#1}}
 \epigramsource{}
 
-
-%%% epigraph configuration
 \usepackage{epigraph}
 \setlength{\epigraphrule}{0pt}
 \renewcommand{\textflush}{flushepinormal}
-\setlength{\epigraphwidth}{.618\textwidth} % Set to the longer part of golden ratio
+\setlength{\epigraphwidth}{.618\textwidth}% Set to the longer part of golden ratio
 \setlength{\afterepigraphskip}{0\baselineskip}
+\setlength{\beforeepigraphskip}{0\baselineskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Footnotes
@@ -1357,23 +1300,6 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \deffootnote[1.5em]{1.5em}{\normalparindent}{\textsuperscript{\thefootnotemark}} % putting a space after footnotemark has undesirable side effects with footnotes that start with an empty line; instead use \xspace in the footnote definition below
 \newlength{\normalparindent}
 \AtBeginDocument{\setlength{\normalparindent}{\parindent}}
-
-\KOMAoptions{footnotes=multiple}
-
-
-%% http://tex.stackexchange.com/questions/28465/multiple-footnotes-at-one-point/71015#71015
-\let\oldFootnote\footnote
-\newcommand\nextToken\relax
-
-% \renewcommand\footnote[1]{% breaks more footnotes than it fixes
-% \oldFootnote{\xspace#1}\futurelet\nextToken\isFootnote}
-
-\newcommand\isFootnote{%
-\ifx\footnote\nextToken\textsuperscript{,}\fi}
-
-
-\let\oldfootnotemark\footnotemark
-\renewcommand{\footnotemark}{\upshape\oldfootnotemark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Quotes
@@ -1462,8 +1388,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	maxcitenames=2,
 	isbn=false,
 	autolang=hyphen,
-	\ifbool{resetcapitals}{
-        language=english,}{}
+	\ifbool{resetcapitals}{language=english,}{}
 	backend=\lsBiblatexBackend,
 	indexing=cite,
 	\notbool{collection}{
@@ -1493,9 +1418,6 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
           {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
     {}}
 
-
-
-
 %% DOIs are handled after hyperref.
 \defbibheading{references}{\chapter{References}\sloppy}
 \defbibheading{french}{\chapter{Références bibliographiques}\sloppy}
@@ -1521,10 +1443,11 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \usepackage{floatrow}	% For adjusting the position of the caption (default is below).
 \floatsetup[table]{capposition=top} 	% As for tables, the caption appears above.
 %% This sets the default for the positioning of floats
+\usepackage[figuresright]{rotating}
+\usepackage{booktabs} % for nicer lines
+
 \renewcommand{\fps@figure}{htbp}
 \renewcommand{\fps@table}{htbp}
-
-\usepackage{booktabs} % for nicer lines
 
 %% floats
 %% http://mintaka.sdsu.edu/GF/bibliog/latex/floats.html
@@ -1532,32 +1455,25 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 
 %% See p.105 of "TeX Unbound" for suggested values.
 %% See pp. 199-200 of Lamport's "LaTeX" book for details.
-%%   General parameters, for ALL pages:
+%% General parameters, for ALL pages:
 \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
 \renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
-%%   Parameters for TEXT pages (not float pages):
+%% Parameters for TEXT pages (not float pages):
 \setcounter{topnumber}{2}
 \setcounter{bottomnumber}{2}
-\setcounter{totalnumber}{4}     % 2 may work better
-\setcounter{dbltopnumber}{2}    % for 2-column pages
+\setcounter{totalnumber}{4} % 2 may work better
+\setcounter{dbltopnumber}{2} % for 2-column pages
 \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
 \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
-%%  Parameters for FLOAT pages (not text pages):
+%% Parameters for FLOAT pages (not text pages):
 \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
-    %% N.B.: floatpagefraction MUST be less than topfraction !!
+%% N.B.: floatpagefraction MUST be less than topfraction !!
 \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
 
 \usepackage{setspace}
 \usepackage{caption}
 % \captionsetup{labelfont=bf}
-\captionsetup{%
-    font={%
-        stretch=.8%
-        ,small%
-    },%
-    width=.8\textwidth
-}
-
+\captionsetup{font={stretch=.8,small},width=.8\textwidth}
 \setcapindent{0pt}
 
 
@@ -1572,7 +1488,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	}
 	%% format of the TOC entry
 	\renewcommand{\addchaptertocentry}[2]{
-		\ifstr{#1}{}{%
+		\Ifstr{#1}{}{%
 		\addtocentrydefault{chapter}{}{#2}%
 		}{%
 		\addtocentrydefault{chapter}{}{\chapapp~#1: #2}%
@@ -1592,8 +1508,6 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
     \appendixname~\thesection\autodot\enskip}}
     \appendix
 }{}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Indexes
@@ -1690,7 +1604,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 % \fi
 
 %% this is required by authorindex
-\newif\ifshowindex \showindexfalse
+% \newif\ifshowindex \showindexfalse
 \usepackage{authorindex}
 
 \providecommand{\isi}[1]{\is{#1}#1}
@@ -1744,6 +1658,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	pdfusetitle=true,  % puts author and title in automatically, maybe only in final mode?
 	pdfkeywords={},
 	pdfpagelayout=TwoPageRight,   % first page is separate
+	hyperfootnotes=false,
 	%ps2pdf=true
 	]{hyperref}
 
@@ -1769,8 +1684,6 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \providecommand{\partref}[1]{Part~\ref{#1}}
 \providecommand{\tabref}[1]{Table~\ref{#1}}
 \providecommand{\figref}[1]{Figure~\ref{#1}}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %    Collection (edited volume):
@@ -1836,49 +1749,53 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 
     \NewDocumentCommand{\includepaper}{m}{
         \bgroup
-		\renewcommand{\newlineCover}{\\}
-                \renewcommand{\documentclass}[2][]{}%
-                \renewcommand{\usepackage}[2][]{}%
-                \renewenvironment{document}{\begingroup}{\endgroup}
-                \includepaper@body
-                \begin{refsection}
-                \renewcommand{\lsCollectionPaperCitationText}{\fullciteFooter{#1footer}}
-                \include{#1}%
+		  \renewcommand{\newlineCover}{\\}
+          \renewcommand{\documentclass}[2][]{}%
+          \renewcommand{\usepackage}[2][]{}%
+          \renewenvironment{document}{\begingroup}{\endgroup}
+          \includepaper@body
+          \begin{refsection}
+            \renewcommand{\lsCollectionPaperCitationText}{\fullciteFooter{#1footer}}
+            \include{#1}%
             \if@partsw\relax\else% This switch controls whether the included chapter is in the range of \includeonly. It's from source2e.
             \addtocounter{page}{-1}
             \edef\lsCollectionPaperLastPage{\thepage}	% \lsCollectionPaperFirstPage is defined in \includepaper@body
             \addtocounter{page}{1}
-
-                %%% for citation in footer
-                %% preprocessing of author/editor names
-                \onlyAuthor
-                \renewcommand{\newlineCover}{}
-                \renewcommand{\newlineSpine}{}
-                \renewcommand{\newlineTOC}{}
-                \StrSubstitute{\@author}{,}{ and }[\authorTemp]
-                \StrSubstitute{\authorTemp}{\&}{ and }[\authorTemp]
-                \StrSubstitute{\lsCollectionEditor}{,}{ and }[\editorTemp]
-                \StrSubstitute{\editorTemp}{\&}{ and }[\editorTemp]
-
-                %% write bib entry to file
-                %% FIXME: the publisher field needs a final period, since this is not provided by \fullciteFooter together with DOIs.
-                \immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}
-                \immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}
-                \fi% If the paper is not within \includeonly, don't do anything.
-                \end{refsection}
+            \lsCollectionMetadataToBibliography{#1}
+          \end{refsection}
         \egroup
     } %end NewDocumentCommand
 }{}
+
+\newcommand{\lsCollectionMetadataToBibliography}[1]{%
+  %% preprocessing of author/editor names
+  \onlyAuthor
+  \renewcommand{\newlineCover}{}
+  \renewcommand{\newlineSpine}{}
+  \renewcommand{\newlineTOC}{}
+  \StrSubstitute{\@author}{,}{ and }[\authorTemp]
+  \StrSubstitute{\authorTemp}{\&}{ and }[\authorTemp]
+  \StrSubstitute{\lsCollectionEditor}{,}{ and }[\editorTemp]
+  \StrSubstitute{\editorTemp}{\&}{ and }[\editorTemp]
+  
+  %% write bib entry to file
+  \immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}
+  \immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}
+  \fi% If the paper is not within \includeonly, don't do anything.
+}
+
+\newcommand{\titleToHead}{}
+\newcommand{\titleTemp}{}
+\newcommand{\titleToToC}{}
 
 \newcommand{\lsCollectionPaperHeaderTitle}{%
   \renewcommand{\newlineCover}{}
   \renewcommand{\newlineTOC}{}
   \ifbool{collectionchapter}{
     \if@mainmatter%Only send the chapter num to head if in mainmatter.
-      \thechapter\hspace{0.5em}\else
+      \thechapter\hspace{0.5em}\titleToHead\else\titleToHead
     \fi
     }{}
-  \titleToHead
 }
   
 \newcommand{\lsCollectionPaperHeaderAuthor}{{%
@@ -1887,41 +1804,37 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
   \onlyAuthor\@author}
 }
 
-\newcommand{\includepaper@body}{
+\newcommand{\includepaper@body}{%
         \RenewDocumentCommand{\title}{O{##2} m O{##2}}{
-            \newcommand{\titleToHead}{##1}
-            \newcommand{\titleTemp}{##2}
-            \newcommand{\titleToToC}{##3}
+            \renewcommand{\titleToHead}{##1}
+            \renewcommand{\titleTemp}{##2}
+            \renewcommand{\titleToToC}{##3}
         }
         \renewcommand{\author}[1]{\renewcommand{\@author}{##1}}
         \renewcommand*{\thesection}{\arabic{section}}
         \RedeclareSectionCommand
             [afterskip=1.15\baselineskip plus .1\baselineskip minus .167\baselineskip]
             {chapter}
-        \renewcommand{\maketitle}{
+        \renewcommand{\maketitle}{%
             % With \setchapterpreamble from scrbook, we ensure that the author(s)
             % and their affiliation(s) are part of the \chapter block.
-            \setchapterpreamble[u]{
-                \onlyAuthor
-                \lsCollectionPaperAuthor%
-            }
+            \setchapterpreamble[u]{\onlyAuthor\lsCollectionPaperAuthor}
             \chapter[tocentry={\titleToToC~\newline{\normalfont \@author}}]{\titleTemp}
             \vspace{\baselineskip}
             \begin{quote}
                 \small\lsCollectionPaperAbstract
             \end{quote}
-            \vspace{\baselineskip}
             % Save the current page for the bibliographical information in the 
             % chapter footer
             \global\edef\lsCollectionPaperFirstPage{\thepage}
             \renewcommand{\newlineCover}{}
             \renewcommand{\newlineTOC}{\\}
-            \ifoot[\lsCollectionPaperCitation]{
+            \ifoot[\lsCollectionPaperCitation]{%
                 \ifbool{draft}{Draft of \today, \currenttime}{}
                     }
-            \ifx\@epigram\empty%
-              \else {\epigraph{\@epigram\\[-5ex]}{\@epigramsource}
-                \epigram{}\epigramsource{}}%
+            \ifx\@epigram\empty
+              \else {\epigraph{\@epigram\\[-2\baselineskip]}{\@epigramsource}
+                \epigram{}\epigramsource{}}
             \fi
             \enlargethispage{-1\baselineskip}
         }
@@ -2128,8 +2041,6 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newlength{\LSPTmp}
-\usepackage[figuresright]{rotating}
-
 \ifbool{uniformtopskip}{}{% Donald Arseneau's automatic handling of page breaking from comp.text.tex: https://groups.google.com/d/topic/comp.text.tex/3eehwzortPg/discussion
     % With the optimisations from the memoir class. The memoir class has relative instead of absolute values.
     \def\sloppybottom{%
