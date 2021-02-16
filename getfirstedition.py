@@ -15,7 +15,7 @@ soup = BeautifulSoup(html, 'html.parser')
 
 try:
     link = soup.find("div","pub_format_single").find("a","pdf").attrs['href']
-except ValueError:
+except AttributeError:
     link = soup.find("div","pub_format_remote").find("a","remote_resource").attrs['href']
 print "downloading", link
 response = urllib2.urlopen(link)
