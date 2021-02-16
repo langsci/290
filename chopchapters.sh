@@ -1,6 +1,5 @@
 chapternumber=0 
 offset=$1
-author=$2
 offset=$(($offset-1))
 old=1
 workingdirectory=`pwd`
@@ -15,7 +14,7 @@ if [[ $difference == 2 ]]; then
     old=$new
     continue
 fi
-pdftk main.pdf cat $old-$(($new-1)) output $prefix-$author-`date +"%Y"`-$chapternumber.pdf
+pdftk main.pdf cat $old-$(($new-1)) output $prefix-$chapternumber.pdf
 old=$new
 chapternumber=$(($chapternumber+1))
 done

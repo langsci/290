@@ -1,0 +1,13 @@
+<ref name="abc">{{Cite book
+| vauthors = Jorge Pinto\lastand Nélia Alexandre The authors focus on the heterogeneity and complexity that characterize third language acquisition, multilingual learning and teaching. As the issues addressed in this book intersect, it represents an asset and therefore the texts will be of great relevance for the scientific community.
+| title =Multilingualism and third language acquisition \subtitle{Learning and teaching trends}
+| place = Berlin
+| publisher = Language Science Press
+| date = 2018
+| format = pdf
+| url = http://langsci-press.org/catalog/book/290
+| doi =
+| doi-access=free
+| isbn = 978-3-96110-296-9)
+}}
+ </ref>
