@@ -1,7 +1,1 @@
-{"versions": [{"versiontype": "proofreading",
-		"title": "Multilingualism and third language acquisition",
-		"authors": [{"name": "Jorge Pinto"},{"name":" Nélia Alexandre"}],
-	"license": "CC-BY-4.0",
-	"publishedAt": "2020-10-26T10:58:58.000Z"}
-	]
-}
+{"versions": [{"authors": [{"name": "Jorge Pinto"}, {"name": " N\u00e9lia Alexandre"}], "title": "Multilingualism and third language acquisition", "publishedAt": "2020-10-26T10:58:58.000Z", "license": "CC-BY-4.0", "versiontype": "proofreading"}, {"title": "Multilingualism and third language acquisition", "versiontype": "first_edition", "license": "CC-BY-4.0", "publishedAt": "2021-02-16T16:00:38.441183", "authors": [{"name": "Jorge Pinto"}, {"name": " N\u00e9lia Alexandre"}]}]}
